@@ -4,3 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+oxc_allocator = "0.87.0"
+oxc_ast = "0.87.0"
+oxc_ast_visit = "0.87.0"
+oxc_parser = "0.87.0"
+oxc_resolver = "11.7.2"
+oxc_span = "0.87.0"
+tracing = "0.1.41"
+walkdir = "2.5.0"

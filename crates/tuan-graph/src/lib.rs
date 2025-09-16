@@ -1,2 +1,2 @@
-mod graph_builders;
-mod graph;
+pub mod graph_builders;
+pub mod graph;
