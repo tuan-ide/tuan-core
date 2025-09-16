@@ -1,44 +1,38 @@
-use std::path::PathBuf;
+use std::{collections::HashSet, path::PathBuf};
+
+use ordered_float::OrderedFloat;
 
 #[derive(Debug, Clone)]
 pub struct Graph {
-    pub edges: Vec<Edge>,
-    pub nodes: Vec<Node>,
+    pub edges: HashSet<Edge>,
+    pub nodes: HashSet<Node>,
 }
 
 impl Graph {
     pub fn new() -> Self {
         Self {
-            edges: Vec::new(),
-            nodes: Vec::new(),
+            edges: HashSet::new(),
+            nodes: HashSet::new(),
         }
     }
 
     pub fn add_node(&mut self, node: Node) {
-        if !self.nodes.iter().any(|n| n.id == node.id) {
-            self.nodes.push(node);
-        }
+        self.nodes.insert(node);
     }
 
     pub fn add_edge(&mut self, edge: Edge) {
-        if !self
-            .edges
-            .iter()
-            .any(|e| e.from == edge.from && e.to == edge.to)
-        {
-            self.edges.push(edge);
-        }
+        self.edges.insert(edge);
     }
 }
 
 pub type NodeId = String;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Node {
     pub id: NodeId,
     pub label: String,
     pub file_path: PathBuf,
-    pub position: (f32, f32),
+    pub position: (OrderedFloat<f32>, OrderedFloat<f32>),
 }
 
 impl Node {
@@ -52,12 +46,12 @@ impl Node {
             id,
             label,
             file_path: path,
-            position: (0.0, 0.0),
+            position: (OrderedFloat(0.0), OrderedFloat(0.0)),
         }
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Edge {
     pub from: NodeId,
     pub to: NodeId,
