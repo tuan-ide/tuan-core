@@ -1,8 +1,9 @@
 use crate::{
-    graph::{Edge, Graph},
+    graph::{Edge, Graph, Node},
     graph_builders::GraphBuilder,
 };
 use std::path::PathBuf;
+use rayon::prelude::*;
 
 mod extractor;
 mod visitor;
@@ -33,22 +34,35 @@ impl Typescript {
             extractor.find_typescript_files(root)
         };
 
-        {
+        let results: Vec<(Node, Vec<Edge>)> = {
             measure_time::info_time!("Extracting imports from TypeScript files");
-            for file in &ts_files {
-                graph.add_node(file.clone());
-
-                match extractor.extract_typescript_imports(file) {
-                    Ok(imports) => {
-                        for imported_file in imports {
-                            graph.add_edge(Edge::new(file.id.clone(), imported_file.id.clone()));
+            ts_files
+                .par_iter()
+                .map(|file| {
+                    let mut edges = Vec::new();
+                    match extractor.extract_typescript_imports(file) {
+                        Ok(imports) => {
+                            for imported_file in imports {
+                                edges.push(Edge::new(file.id.clone(), imported_file.id.clone()));
+                            }
                         }
+                        Err(e) => tracing::error!(
+                            "Error extracting imports from {}: {}",
+                            file.file_path.display(),
+                            e
+                        ),
                     }
-                    Err(e) => tracing::error!(
-                        "Error extracting imports from {}: {}",
-                        file.file_path.display(),
-                        e
-                    ),
+                    (file.clone(), edges)
+                })
+                .collect()
+        };
+
+        {
+            measure_time::info_time!("Inserting nodes and edges into graph");
+            for (file, edges) in results {
+                graph.add_node(file);
+                for edge in edges {
+                    graph.add_edge(edge);
                 }
             }
         }
