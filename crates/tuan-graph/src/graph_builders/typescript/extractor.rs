@@ -46,19 +46,8 @@ impl Extractor {
     pub(super) fn find_typescript_files(&self, root: &Path) -> Vec<Node> {
         WalkDir::new(root)
             .into_iter()
-            .filter_map(|entry| entry.ok())
-            .filter(|entry| {
-                entry.file_type().is_file()
-                    && entry
-                        .path()
-                        .extension()
-                        .and_then(|s| s.to_str())
-                        .map(|ext| matches!(ext, "ts" | "tsx" | "js" | "jsx" | "mjs" | "cjs"))
-                        .unwrap_or(false)
-            })
-            .filter(|entry| {
+            .filter_entry(|entry| {
                 !entry.path().components().any(|component| {
-                    // TODO: ignore files from .gitignore
                     matches!(
                         component.as_os_str().to_str(),
                         Some("node_modules")
@@ -70,7 +59,19 @@ impl Extractor {
                     )
                 })
             })
-            .map(|entry| Node::from_path(entry.path().to_path_buf()))
+            .filter_map(|res| {
+                let e = res.ok()?;
+                if e.file_type().is_file() {
+                    match e.path().extension().and_then(|s| s.to_str()) {
+                        Some("ts" | "tsx" | "js" | "jsx" | "mjs" | "cjs") => {
+                            Some(Node::from_path(e.into_path()))
+                        }
+                        _ => None,
+                    }
+                } else {
+                    None
+                }
+            })
             .collect()
     }
 
