@@ -49,3 +49,59 @@ impl Typescript {
         graph
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::time;
+    use test_log::test;
+    use tracing::info;
+
+    #[test]
+    fn it_builds_a_graph() {
+        let start = time::Instant::now();
+
+        let (fixture_dir, temp_dir) =
+            setup_test_project("https://github.com/webpack/webpack", "4fabb75");
+        let typescript = Typescript::new(fixture_dir);
+
+        let graph = typescript.get_graph();
+
+        assert!(graph.nodes.len() > 0);
+        assert!(graph.edges.len() > 0);
+
+        info!("Graph has {} nodes", graph.nodes.len());
+        info!("Graph has {} edges", graph.edges.len());
+        info!("Took {:?}", start.elapsed());
+
+        drop(temp_dir);
+    }
+
+    fn setup_test_project(git_repo: &str, commit: &str) -> (PathBuf, tempfile::TempDir) {
+        let temp_dir = tempfile::tempdir().unwrap();
+        let fixture_dir = temp_dir.path();
+        std::fs::create_dir_all(&temp_dir).unwrap();
+
+        info!("Cloning {} into {}", git_repo, fixture_dir.display());
+        let output = std::process::Command::new("git")
+            .args(&[
+                "clone",
+                "--depth",
+                "1",
+                git_repo,
+                &fixture_dir.to_string_lossy(),
+            ])
+            .output()
+            .unwrap();
+        assert!(output.status.success());
+
+        info!("Checking out commit {}", commit);
+        let output = std::process::Command::new("git")
+            .args(&["-C", &fixture_dir.to_string_lossy(), "checkout", commit])
+            .output()
+            .unwrap();
+        assert!(output.status.success());
+
+        (fixture_dir.to_path_buf(), temp_dir)
+    }
+}
