@@ -24,25 +24,32 @@ impl Typescript {
     }
 
     fn create_graph(project_path: PathBuf) -> Graph {
-        let root = &project_path;
-        let extractor = extractor::Extractor::new(project_path.clone());
-        let ts_files = extractor.find_typescript_files(root);
         let mut graph = Graph::new();
 
-        for file in &ts_files {
-            graph.add_node(file.clone());
+        let root = &project_path;
+        let extractor = extractor::Extractor::new(project_path.clone());
+        let ts_files = {
+            measure_time::info_time!("Finding TypeScript files");
+            extractor.find_typescript_files(root)
+        };
 
-            match extractor.extract_typescript_imports(file) {
-                Ok(imports) => {
-                    for imported_file in imports {
-                        graph.add_edge(Edge::new(file.id.clone(), imported_file.id.clone()));
+        {
+            measure_time::info_time!("Extracting imports from TypeScript files");
+            for file in &ts_files {
+                graph.add_node(file.clone());
+
+                match extractor.extract_typescript_imports(file) {
+                    Ok(imports) => {
+                        for imported_file in imports {
+                            graph.add_edge(Edge::new(file.id.clone(), imported_file.id.clone()));
+                        }
                     }
+                    Err(e) => tracing::error!(
+                        "Error extracting imports from {}: {}",
+                        file.file_path.display(),
+                        e
+                    ),
                 }
-                Err(e) => tracing::error!(
-                    "Error extracting imports from {}: {}",
-                    file.file_path.display(),
-                    e
-                ),
             }
         }
 
@@ -53,26 +60,33 @@ impl Typescript {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::time;
     use test_log::test;
     use tracing::info;
 
     #[test]
     fn it_builds_a_graph() {
-        let start = time::Instant::now();
-
         let (fixture_dir, temp_dir) =
             setup_test_project("https://github.com/webpack/webpack", "4fabb75");
-        let typescript = Typescript::new(fixture_dir);
 
-        let graph = typescript.get_graph();
+        let graph = {
+            measure_time::info_time!("Building graph for webpack");
+
+            let typescript = {
+                measure_time::info_time!("Initializing Typescript graph builder");
+                Typescript::new(fixture_dir)
+            };
+
+            {
+                measure_time::info_time!("Getting graph from Typescript graph builder");
+                typescript.get_graph()
+            }
+        };
 
         assert!(graph.nodes.len() > 0);
         assert!(graph.edges.len() > 0);
 
         info!("Graph has {} nodes", graph.nodes.len());
         info!("Graph has {} edges", graph.edges.len());
-        info!("Took {:?}", start.elapsed());
 
         drop(temp_dir);
     }
