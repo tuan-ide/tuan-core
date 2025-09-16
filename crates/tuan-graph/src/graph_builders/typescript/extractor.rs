@@ -85,7 +85,7 @@ impl Extractor {
             Some("tsx") => SourceType::tsx(),
             Some("ts") => SourceType::ts(),
             Some("jsx") => SourceType::jsx(),
-            Some("js") => SourceType::unambiguous(),
+            Some("js") => SourceType::unambiguous().with_jsx(true).with_module(true),
             Some("mjs") => SourceType::mjs(),
             Some("cjs") => SourceType::cjs(),
             _ => SourceType::unambiguous(),
