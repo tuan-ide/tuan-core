@@ -15,6 +15,7 @@ oxc_span = "0.87.0"
 rayon = "1.11.0"
 tracing = "0.1.41"
 walkdir = "2.5.0"
+yifan-hu-graph-layout = { git = "https://github.com/tuan-ide/yifan-hu-graph-layout.git", branch = "main" }
 
 [dev-dependencies]
 tempfile = "3.22.0"

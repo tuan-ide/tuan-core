@@ -2,8 +2,8 @@ use crate::{
     graph::{Edge, Graph, Node},
     graph_builders::GraphBuilder,
 };
-use std::path::PathBuf;
 use rayon::prelude::*;
+use std::path::PathBuf;
 
 mod extractor;
 mod visitor;
@@ -27,11 +27,21 @@ impl Typescript {
     fn create_graph(project_path: PathBuf) -> Graph {
         let mut graph = Graph::new();
 
+        let project_path = project_path.canonicalize().unwrap();
         let root = &project_path;
         let extractor = extractor::Extractor::new(project_path.clone());
         let ts_files = {
             measure_time::info_time!("Finding TypeScript files");
             extractor.find_typescript_files(root)
+        };
+
+        let nodes = {
+            measure_time::info_time!("Transforming TypeScript files vectors into HashMap");
+            let mut map = std::collections::HashMap::new();
+            for file in &ts_files {
+                map.insert(file.file_path.clone(), file.clone());
+            }
+            map
         };
 
         let results: Vec<(Node, Vec<Edge>)> = {
@@ -43,7 +53,10 @@ impl Typescript {
                     match extractor.extract_typescript_imports(file) {
                         Ok(imports) => {
                             for imported_file in imports {
-                                edges.push(Edge::new(file.id.clone(), imported_file.id.clone()));
+                                // TODO: support imports with ? (like import x from 'y?type=script')
+                                if let Some(import_node) = nodes.get(&imported_file.file_path) {
+                                    edges.push(Edge::new(file.id.clone(), import_node.id.clone()));
+                                }
                             }
                         }
                         Err(e) => tracing::error!(
@@ -59,10 +72,12 @@ impl Typescript {
 
         {
             measure_time::info_time!("Inserting nodes and edges into graph");
-            for (file, edges) in results {
-                graph.add_node(file);
+            for (file, _edges) in &results {
+                graph.add_node(file.clone());
+            }
+            for (_file, edges) in &results {
                 for edge in edges {
-                    graph.add_edge(edge);
+                    graph.add_edge(edge.clone());
                 }
             }
         }
@@ -79,10 +94,12 @@ mod tests {
 
     #[test]
     fn it_builds_a_graph() {
-        let (fixture_dir, temp_dir) =
-            setup_test_project("https://github.com/webpack/webpack", "4fabb75");
+        let (fixture_dir, temp_dir) = setup_test_project(
+            "https://github.com/webpack/webpack",
+            "7fc28f1e53634e1c6f082713ded2e5b3f3a96585",
+        );
 
-        let graph = {
+        let mut graph = {
             measure_time::info_time!("Building graph for webpack");
 
             let typescript = {
@@ -96,13 +113,18 @@ mod tests {
             }
         };
 
-        assert!(graph.nodes.len() > 0);
-        assert!(graph.edges.len() > 0);
+        info!("Graph has {} nodes", graph.iter_nodes().count());
+        info!("Graph has {} edges", graph.iter_edges().count());
 
-        info!("Graph has {} nodes", graph.nodes.len());
-        info!("Graph has {} edges", graph.edges.len());
+        assert!(graph.iter_nodes().count() == 7745);
+        assert!(graph.iter_edges().count() == 5389);
 
         drop(temp_dir);
+
+        {
+            measure_time::info_time!("Positioning graph");
+            graph.positioning();
+        }
     }
 
     fn setup_test_project(git_repo: &str, commit: &str) -> (PathBuf, tempfile::TempDir) {
@@ -121,14 +143,26 @@ mod tests {
             ])
             .output()
             .unwrap();
-        assert!(output.status.success());
+        assert!(
+            output.status.success(),
+            "`git clone --depth 1 {} {}` failed: {:?}",
+            git_repo,
+            fixture_dir.display(),
+            output
+        );
 
         info!("Checking out commit {}", commit);
         let output = std::process::Command::new("git")
             .args(&["-C", &fixture_dir.to_string_lossy(), "checkout", commit])
             .output()
             .unwrap();
-        assert!(output.status.success());
+        assert!(
+            output.status.success(),
+            "`git -C {} checkout {}` failed: {:?}",
+            fixture_dir.display(),
+            commit,
+            output
+        );
 
         (fixture_dir.to_path_buf(), temp_dir)
     }
