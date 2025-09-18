@@ -3,7 +3,10 @@ use oxc_ast_visit::Visit;
 use oxc_parser::{Parser, ParserReturn};
 use oxc_resolver::{ResolveOptions, Resolver, TsconfigOptions, TsconfigReferences};
 use oxc_span::SourceType;
-use std::path::{Path, PathBuf};
+use std::{
+    collections::HashMap,
+    path::{Path, PathBuf},
+};
 use walkdir::WalkDir;
 
 pub(super) struct Extractor {
@@ -43,7 +46,7 @@ impl Extractor {
         Resolver::new(options)
     }
 
-    pub(super) fn find_typescript_files(&self, root: &Path) -> Vec<Node> {
+    pub(super) fn find_typescript_files(&self, root: &Path) -> HashMap<PathBuf, Node> {
         WalkDir::new(root)
             .into_iter()
             .filter_entry(|entry| {
@@ -64,7 +67,8 @@ impl Extractor {
                 if e.file_type().is_file() {
                     match e.path().extension().and_then(|s| s.to_str()) {
                         Some("ts" | "tsx" | "js" | "jsx" | "mjs" | "cjs") => {
-                            Some(Node::from_path(e.into_path()))
+                            let node = Node::from_path(e.into_path());
+                            Some((node.file_path.clone(), node))
                         }
                         _ => None,
                     }
@@ -72,7 +76,7 @@ impl Extractor {
                     None
                 }
             })
-            .collect()
+            .collect::<HashMap<_, _>>()
     }
 
     pub(super) fn extract_typescript_imports(

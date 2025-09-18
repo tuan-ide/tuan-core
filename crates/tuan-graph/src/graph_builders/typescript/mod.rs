@@ -35,26 +35,17 @@ impl Typescript {
             extractor.find_typescript_files(root)
         };
 
-        let nodes = {
-            measure_time::info_time!("Transforming TypeScript files vectors into HashMap");
-            let mut map = std::collections::HashMap::new();
-            for file in &ts_files {
-                map.insert(file.file_path.clone(), file.clone());
-            }
-            map
-        };
-
         let results: Vec<(Node, Vec<Edge>)> = {
             measure_time::info_time!("Extracting imports from TypeScript files");
             ts_files
                 .par_iter()
-                .map(|file| {
+                .map(|(_, file)| {
                     let mut edges = Vec::new();
                     match extractor.extract_typescript_imports(file) {
                         Ok(imports) => {
                             for imported_file in imports {
                                 // TODO: support imports with ? (like import x from 'y?type=script')
-                                if let Some(import_node) = nodes.get(&imported_file.file_path) {
+                                if let Some(import_node) = ts_files.get(&imported_file.file_path) {
                                     edges.push(Edge::new(file.id.clone(), import_node.id.clone()));
                                 }
                             }
