@@ -4,8 +4,10 @@ use std::{
     collections::{HashMap, HashSet},
     path::PathBuf,
 };
+use serde::Serialize;
 
-#[derive(Debug, Clone)]
+#[repr(C)]
+#[derive(Debug, Clone, Serialize)]
 pub struct Graph {
     pub edges: HashSet<Edge>,
     pub nodes: HashMap<NodeId, Node>,
@@ -44,7 +46,7 @@ impl Graph {
             .map(|(idx, &id)| (id, idx))
             .collect();
 
-        let mut graph_layout = yifan_hu_graph_layout::Graph::new(node_ids.len());
+        let mut graph_layout = yifan_hu::Graph::new(node_ids.len());
 
         for edge in &self.edges {
             let from_idx = *nodes_indexes.get(&edge.from).unwrap();
@@ -52,7 +54,7 @@ impl Graph {
             graph_layout.add_edge(from_idx, to_idx, 1.0);
         }
 
-        let settings = yifan_hu_graph_layout::LayoutSettings {
+        let settings = yifan_hu::LayoutSettings {
             max_iterations: 10000,
             tolerance: 1e-3,
             ..Default::default()
@@ -60,7 +62,7 @@ impl Graph {
 
         let result = {
             measure_time::info_time!("Running graph layout algorithm");
-            yifan_hu_graph_layout::multilevel_layout(&graph_layout, &settings)
+            yifan_hu::multilevel_layout(&graph_layout, &settings)
         };
 
         for (idx, node_id) in node_ids.iter().enumerate() {
@@ -78,7 +80,7 @@ impl Graph {
 
 pub type NodeId = usize;
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct Node {
     pub id: NodeId,
     pub label: String,
@@ -105,7 +107,7 @@ impl Node {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct Edge {
     pub from: NodeId,
     pub to: NodeId,
