@@ -1,0 +1,11 @@
+{
+  "name": "@tuan/core-graph",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "napi build --release --cwd ../.. --package-json-path ./src/napi/package.json -o ./src/napi/dist --platform --esm"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.2.0"
+  }
+}
