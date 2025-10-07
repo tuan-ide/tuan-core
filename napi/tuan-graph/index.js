@@ -80,8 +80,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-android-arm64')
         const bindingPackageVersion = require('@tuan/core-graph-android-arm64/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -96,8 +96,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-android-arm-eabi')
         const bindingPackageVersion = require('@tuan/core-graph-android-arm-eabi/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -116,8 +116,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-win32-x64-msvc')
         const bindingPackageVersion = require('@tuan/core-graph-win32-x64-msvc/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -132,8 +132,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-win32-ia32-msvc')
         const bindingPackageVersion = require('@tuan/core-graph-win32-ia32-msvc/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -148,8 +148,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-win32-arm64-msvc')
         const bindingPackageVersion = require('@tuan/core-graph-win32-arm64-msvc/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -167,8 +167,8 @@ function requireNative() {
     try {
       const binding = require('@tuan/core-graph-darwin-universal')
       const bindingPackageVersion = require('@tuan/core-graph-darwin-universal/package.json').version
-      if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-        throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+      if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+        throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
       }
       return binding
     } catch (e) {
@@ -183,8 +183,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-darwin-x64')
         const bindingPackageVersion = require('@tuan/core-graph-darwin-x64/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -199,8 +199,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-darwin-arm64')
         const bindingPackageVersion = require('@tuan/core-graph-darwin-arm64/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -219,8 +219,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-freebsd-x64')
         const bindingPackageVersion = require('@tuan/core-graph-freebsd-x64/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -235,8 +235,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-freebsd-arm64')
         const bindingPackageVersion = require('@tuan/core-graph-freebsd-arm64/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -256,8 +256,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-x64-musl')
           const bindingPackageVersion = require('@tuan/core-graph-linux-x64-musl/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -272,8 +272,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-x64-gnu')
           const bindingPackageVersion = require('@tuan/core-graph-linux-x64-gnu/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -290,8 +290,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-arm64-musl')
           const bindingPackageVersion = require('@tuan/core-graph-linux-arm64-musl/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -306,8 +306,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-arm64-gnu')
           const bindingPackageVersion = require('@tuan/core-graph-linux-arm64-gnu/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -324,8 +324,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-arm-musleabihf')
           const bindingPackageVersion = require('@tuan/core-graph-linux-arm-musleabihf/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -340,8 +340,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-arm-gnueabihf')
           const bindingPackageVersion = require('@tuan/core-graph-linux-arm-gnueabihf/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -358,8 +358,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-loong64-musl')
           const bindingPackageVersion = require('@tuan/core-graph-linux-loong64-musl/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -374,8 +374,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-loong64-gnu')
           const bindingPackageVersion = require('@tuan/core-graph-linux-loong64-gnu/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -392,8 +392,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-riscv64-musl')
           const bindingPackageVersion = require('@tuan/core-graph-linux-riscv64-musl/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -408,8 +408,8 @@ function requireNative() {
         try {
           const binding = require('@tuan/core-graph-linux-riscv64-gnu')
           const bindingPackageVersion = require('@tuan/core-graph-linux-riscv64-gnu/package.json').version
-          if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-            throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+          if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+            throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
           return binding
         } catch (e) {
@@ -425,8 +425,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-linux-ppc64-gnu')
         const bindingPackageVersion = require('@tuan/core-graph-linux-ppc64-gnu/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -441,8 +441,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-linux-s390x-gnu')
         const bindingPackageVersion = require('@tuan/core-graph-linux-s390x-gnu/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -461,8 +461,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-openharmony-arm64')
         const bindingPackageVersion = require('@tuan/core-graph-openharmony-arm64/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -477,8 +477,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-openharmony-x64')
         const bindingPackageVersion = require('@tuan/core-graph-openharmony-x64/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -493,8 +493,8 @@ function requireNative() {
       try {
         const binding = require('@tuan/core-graph-openharmony-arm')
         const bindingPackageVersion = require('@tuan/core-graph-openharmony-arm/package.json').version
-        if (bindingPackageVersion !== '1.0.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
-          throw new Error(`Native binding package version mismatch, expected 1.0.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
+        if (bindingPackageVersion !== '0.1.0' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
+          throw new Error(`Native binding package version mismatch, expected 0.1.0 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
         return binding
       } catch (e) {
@@ -557,10 +557,5 @@ if (!nativeBinding) {
 }
 
 module.exports = nativeBinding
-module.exports.Edge = nativeBinding.Edge
-module.exports.NapiEdge = nativeBinding.NapiEdge
 module.exports.Graph = nativeBinding.Graph
-module.exports.NapiGraph = nativeBinding.NapiGraph
-module.exports.Node = nativeBinding.Node
-module.exports.NapiNode = nativeBinding.NapiNode
 module.exports.typescript = nativeBinding.typescript

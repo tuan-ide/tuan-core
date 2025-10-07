@@ -108,10 +108,5 @@ const { instance: __napiInstance, module: __wasiModule, napiModule: __napiModule
   },
 })
 module.exports = __napiModule.exports
-module.exports.Edge = __napiModule.exports.Edge
-module.exports.NapiEdge = __napiModule.exports.NapiEdge
 module.exports.Graph = __napiModule.exports.Graph
-module.exports.NapiGraph = __napiModule.exports.NapiGraph
-module.exports.Node = __napiModule.exports.Node
-module.exports.NapiNode = __napiModule.exports.NapiNode
 module.exports.typescript = __napiModule.exports.typescript

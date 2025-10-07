@@ -56,10 +56,5 @@ const {
   },
 })
 export default __napiModule.exports
-export const Edge = __napiModule.exports.Edge
-export const NapiEdge = __napiModule.exports.NapiEdge
 export const Graph = __napiModule.exports.Graph
-export const NapiGraph = __napiModule.exports.NapiGraph
-export const Node = __napiModule.exports.Node
-export const NapiNode = __napiModule.exports.NapiNode
 export const typescript = __napiModule.exports.typescript

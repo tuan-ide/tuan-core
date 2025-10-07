@@ -113,5 +113,21 @@
     "singleQuote": true,
     "arrowParens": "always"
   },
-  "packageManager": "pnpm@10.15.0"
+  "packageManager": "pnpm@10.15.0",
+  "optionalDependencies": {
+    "@tuan/core-graph-win32-x64-msvc": "0.1.0",
+    "@tuan/core-graph-darwin-x64": "0.1.0",
+    "@tuan/core-graph-linux-x64-gnu": "0.1.0",
+    "@tuan/core-graph-linux-x64-musl": "0.1.0",
+    "@tuan/core-graph-linux-arm64-gnu": "0.1.0",
+    "@tuan/core-graph-win32-ia32-msvc": "0.1.0",
+    "@tuan/core-graph-linux-arm-gnueabihf": "0.1.0",
+    "@tuan/core-graph-darwin-arm64": "0.1.0",
+    "@tuan/core-graph-android-arm64": "0.1.0",
+    "@tuan/core-graph-freebsd-x64": "0.1.0",
+    "@tuan/core-graph-linux-arm64-musl": "0.1.0",
+    "@tuan/core-graph-win32-arm64-msvc": "0.1.0",
+    "@tuan/core-graph-android-arm-eabi": "0.1.0",
+    "@tuan/core-graph-wasm32-wasi": "0.1.0"
+  }
 }
