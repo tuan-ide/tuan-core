@@ -1,6 +1,7 @@
 {
   "conventionalCommits.scopes": [
     "TuanGraph",
-    "TuanGraph/TypeScript"
+    "TuanGraph/TypeScript",
+    "TuanLabeler"
   ]
 }

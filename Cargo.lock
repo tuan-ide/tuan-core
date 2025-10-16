@@ -1497,6 +1497,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "tuan-labeler"
+version = "0.1.0"
+dependencies = [
+ "measure_time",
+ "rayon",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "unicode-id-start"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
