@@ -1,7 +1,7 @@
 #![deny(clippy::all)]
 
 use napi_derive::napi;
-use tuan_graph::graph;
+use tuan_graph::{cluster, graph};
 
 #[napi(js_name = "Graph")]
 pub struct Graph {
@@ -27,6 +27,16 @@ impl Graph {
       nodes: self.nodes(),
       edges: self.edges(),
     }
+  }
+
+  #[napi]
+  pub fn clusterize(&self, max_iters: u32) -> Vec<Cluster> {
+    self
+      .inner
+      .clusterize(max_iters as usize)
+      .into_iter()
+      .map(Cluster::from_native)
+      .collect()
   }
 
   #[napi(getter)]
@@ -80,6 +90,21 @@ impl Edge {
     Self {
       from: edge.from as u32,
       to: edge.to as u32,
+    }
+  }
+}
+
+#[napi(object)]
+pub struct Cluster {
+  pub id: u32,
+  pub members: Vec<u32>,
+}
+
+impl Cluster {
+  pub(crate) fn from_native(cluster: cluster::Cluster) -> Self {
+    Self {
+      id: cluster.id as u32,
+      members: cluster.members.iter().map(|&id| id as u32).collect(),
     }
   }
 }

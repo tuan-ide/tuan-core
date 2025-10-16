@@ -3,8 +3,14 @@
 export declare class Graph {
   positioning(): void
   describe(): GraphDescription
+  clusterize(maxIters: number): Array<Cluster>
   get nodes(): Array<Node>
   get edges(): Array<Edge>
+}
+
+export interface Cluster {
+  id: number
+  members: Array<number>
 }
 
 export interface Edge {
