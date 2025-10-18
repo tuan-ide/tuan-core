@@ -1,5 +1,6 @@
 mod tokenizers;
 mod tokens_scorer;
+mod test;
 
 use crate::tokens_scorer::TokensScorer;
 use std::collections::HashMap;
