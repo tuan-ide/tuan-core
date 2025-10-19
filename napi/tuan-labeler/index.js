@@ -575,4 +575,4 @@ if (!nativeBinding) {
 }
 
 module.exports = nativeBinding
-module.exports.labelFiles = nativeBinding.labelFiles
+module.exports.ProjectLabeler = nativeBinding.ProjectLabeler

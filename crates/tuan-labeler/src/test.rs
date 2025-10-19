@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use crate::label_files;
+    use std::path::PathBuf;
+
+    use crate::ProjectLabeler;
 
     #[test]
     fn test_labeler() {
@@ -24,9 +26,9 @@ mod tests {
             "/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume/packages/builder/src/builder.ts",
             "/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume/packages/builder/src/fastify/fastify-builder.ts",
             "/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume/apps/cli/src/index.ts",
-        ];
+        ].iter().map(PathBuf::from).collect::<Vec<_>>();
 
-        let files = vec![
+        let project_files = vec![
             "/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume/examples/react-stream-example/src/vite-env.d.ts",
             "/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume/apps/cli/src/cli/create-server.ts",
             "/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume/apps/cli/src/cli/options/entry-option.ts",
@@ -171,11 +173,12 @@ mod tests {
             "/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume/examples/react-diabolo-example/vite.config.ts",
         ];
 
-        let result = label_files(
-            files,
-            selected_files,
-            "/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume",
+        let project_labeler = ProjectLabeler::new(
+            "/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume".to_string(),
+            project_files,
         );
+
+        let result = project_labeler.label_files(selected_files);
 
         if let Ok(labels) = result.as_ref() {
             let mut sorted_labels = labels.into_iter().collect::<Vec<_>>();

@@ -56,4 +56,4 @@ const {
   },
 })
 export default __napiModule.exports
-export const labelFiles = __napiModule.exports.labelFiles
+export const ProjectLabeler = __napiModule.exports.ProjectLabeler
