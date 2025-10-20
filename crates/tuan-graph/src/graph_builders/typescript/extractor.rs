@@ -35,12 +35,16 @@ impl Extractor {
                 ".mjs".into(),
                 ".cjs".into(),
                 ".json".into(),
+                ".d.ts".into(),
             ],
-            condition_names: vec!["node".into(), "import".into()],
-            tsconfig: Some(TsconfigOptions {
-                config_file,
-                references: TsconfigReferences::Auto,
-            }),
+            condition_names: vec!["node".into(), "import".into(), "types".into()],
+            main_fields: vec![
+                "types".into(),
+                "typings".into(),
+                "module".into(),
+                "main".into(),
+            ],
+            tsconfig: Some(oxc_resolver::TsconfigDiscovery::Auto),
             ..ResolveOptions::default()
         };
 
