@@ -2073,6 +2073,7 @@ dependencies = [
 [[package]]
 name = "yifan_hu"
 version = "0.1.0"
+source = "git+https://github.com/tuan-ide/yifan-hu-rs.git?branch=main#73c4977fe7ed3906676ccc26010107a7bdee23a0"
 dependencies = [
  "rand",
 ]
