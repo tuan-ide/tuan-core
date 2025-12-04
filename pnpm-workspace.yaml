@@ -1,0 +1,4 @@
+packages:
+  - napi/*
+ignoredOptionalDependencies:
+  - '@tuan/core-graph*'
