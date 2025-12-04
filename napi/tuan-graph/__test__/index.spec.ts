@@ -1,16 +1,32 @@
-import test from 'ava'
+import path from 'node:path';
+import { execSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import anyTest, { type TestFn } from 'ava'
 
 import { typescript } from '../index'
 
+const test = anyTest as TestFn<{ projectDir: string }>;
+
+test.before((t) => {
+  const repoUrl = 'https://github.com/arthur-fontaine/agrume.git';
+  const cloneDir = path.join(tmpdir(), `agrume-${Date.now()}`);
+
+  execSync(`git clone ${repoUrl} ${cloneDir}`, { stdio: 'inherit' });
+  execSync(`cd ${cloneDir} && pnpm install`, { stdio: 'inherit' });
+  execSync(`cd ${cloneDir} && pnpm build`, { stdio: 'inherit' });
+
+  t.context.projectDir = cloneDir;
+});
+
 test('create typescript graph', (t) => {
-  const graph = typescript.getGraph("/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume")
+  const graph = typescript.getGraph(t.context.projectDir)
 
   t.truthy(graph.nodes.length > 0)
   t.truthy(graph.edges.length > 0)
 })
 
 test('positioning', (t) => {
-  const graph = typescript.getGraph("/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume")
+  const graph = typescript.getGraph(t.context.projectDir)
   graph.positioning()
 
   for (const node of graph.nodes) {
@@ -23,7 +39,7 @@ test('positioning', (t) => {
 })
 
 test('clusterize', (t) => {
-  const graph = typescript.getGraph("/Users/arthur-fontaine/Developer/code/github.com/arthur-fontaine/agrume")
+  const graph = typescript.getGraph(t.context.projectDir)
   const clusters = graph.clusterize(100)
 
   t.truthy(clusters.length > 0)
