@@ -3,7 +3,6 @@ use oxc_ast_visit::Visit;
 use oxc_parser::{Parser, ParserReturn};
 use oxc_resolver::{ResolveOptions, Resolver, TsconfigOptions, TsconfigReferences};
 use oxc_span::SourceType;
-use path_clean::PathClean;
 use std::{
     collections::HashMap,
     path::{Path, PathBuf},
@@ -73,7 +72,7 @@ impl Extractor {
                     match e.path().extension().and_then(|s| s.to_str()) {
                         Some("ts" | "tsx" | "js" | "jsx" | "mjs" | "cjs") => {
                             let node = Node::from_path(e.into_path());
-                            Some((node.file_path.clean().clone(), node))
+                            Some((node.file_path.clone(), node))
                         }
                         _ => None,
                     }

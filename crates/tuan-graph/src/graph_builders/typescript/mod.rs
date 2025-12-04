@@ -2,7 +2,6 @@ use crate::{
     graph::{Edge, Graph, Node},
     graph_builders::GraphBuilder,
 };
-use path_clean::PathClean;
 use rayon::prelude::*;
 use std::path::PathBuf;
 
@@ -28,7 +27,7 @@ impl Typescript {
     fn create_graph(project_path: PathBuf) -> Graph {
         let mut graph = Graph::new();
 
-        let project_path = project_path.clean();
+        let project_path = project_path.canonicalize().unwrap();
         let root = &project_path;
         let extractor = extractor::Extractor::new(project_path.clone());
         let ts_files = {

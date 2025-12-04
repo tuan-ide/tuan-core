@@ -1,5 +1,4 @@
 use ordered_float::OrderedFloat;
-use path_clean::PathClean as _;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::{
     collections::{HashMap, HashSet},
@@ -93,8 +92,6 @@ impl Node {
     pub fn from_path(file_path: PathBuf) -> Self {
         static NODE_ID_COUNTER: AtomicUsize = AtomicUsize::new(0);
         let id = NODE_ID_COUNTER.fetch_add(1, Ordering::Relaxed);
-
-        let file_path = file_path.clean();
 
         let label = file_path
             .file_name()
