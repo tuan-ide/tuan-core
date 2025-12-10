@@ -213,7 +213,7 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: bindings-freebsd
-          path: ${{ env.APP_NAME }}.*.node
+          path: napi/tuan-labeler/${{ env.APP_NAME }}.*.node
           if-no-files-found: error
   test-macOS-windows-binding:
     defaults:
@@ -367,7 +367,7 @@ jobs:
       - name: Test bindings
         run: pnpm test
         env:
-          NAPI_RS_FORCE_WASI: 1
+          NAPI_RS_FORCE_WASI: error
   publish:
     defaults:
       run:
