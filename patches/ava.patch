@@ -1,0 +1,55 @@
+diff --git a/lib/reporters/colors.js b/lib/reporters/colors.js
+index 644e897dffe6d44c11a4bc6766c0c242d5ee8574..4c6397eead84dd11fc81f82b6acbf93180cd10f2 100644
+--- a/lib/reporters/colors.js
++++ b/lib/reporters/colors.js
+@@ -34,6 +34,9 @@ const colors = {
+ 	get stack() {
+ 		return chalk.red;
+ 	},
++	get cause() {
++		return chalk.cyan;
++	},
+ 	get information() {
+ 		return chalk.magenta;
+ 	},
+diff --git a/lib/reporters/default.js b/lib/reporters/default.js
+index 10ca84f6561bf164091d776e68a017def12f1da0..fd7584fc2dd931f1d3f92dc95fb427eafe530ab1 100644
+--- a/lib/reporters/default.js
++++ b/lib/reporters/default.js
+@@ -463,6 +463,17 @@ export default class Reporter {
+ 			}
+ 		}
+ 
++		const hasCause = error.cause instanceof Object && (error.cause.message || error.cause.stack);
++    if (hasCause) {
++			const {cause} = error;
++      this.lineWriter.writeLine(colors.cause('Cause:'));
++      this.lineWriter.writeLine(colors.cause(cause.message ?? ''));
++      if (cause.stack) {
++        this.lineWriter.writeLine(colors.cause(cause.stack));
++      }
++      this.lineWriter.writeLine();
++    }
++
+ 		let summary = '';
+ 		let printStack = true;
+ 		if (error.type === 'native') {
+diff --git a/lib/serialize-error.js b/lib/serialize-error.js
+index ca47a63500d0c1ab6e704202bb8764af57cb5120..55db25465e8893947626cd9f097a24a4a9ad2676 100644
+--- a/lib/serialize-error.js
++++ b/lib/serialize-error.js
+@@ -61,12 +61,13 @@ export default function serializeError(error, {testFile = null} = {}) {
+ 		};
+ 	}
+ 
+-	const {message, name, stack} = error;
++	const {message, name, stack, cause} = error;
+ 	const base = {
+ 		message,
+ 		name,
+ 		originalError: error, // Note that the main process receives a structured clone.
+ 		stack,
++		cause,
+ 	};
+ 
+ 	if (!isAvaAssertionError(error)) {

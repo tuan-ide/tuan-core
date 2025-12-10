@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  ava:
+    hash: a8ca79e6f8a960e23b51f993feb29fb4dbb2d5135c90aca36b1002c46f8f4cbf
+    path: patches/ava.patch
+
 importers:
 
   .:
@@ -40,7 +45,7 @@ importers:
         version: 24.10.1
       ava:
         specifier: ^6.4.1
-        version: 6.4.1
+        version: 6.4.1(patch_hash=a8ca79e6f8a960e23b51f993feb29fb4dbb2d5135c90aca36b1002c46f8f4cbf)
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -88,7 +93,7 @@ importers:
         version: 24.10.1
       ava:
         specifier: ^6.4.1
-        version: 6.4.1
+        version: 6.4.1(patch_hash=a8ca79e6f8a960e23b51f993feb29fb4dbb2d5135c90aca36b1002c46f8f4cbf)
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -2306,7 +2311,7 @@ snapshots:
 
   async-sema@3.1.1: {}
 
-  ava@6.4.1:
+  ava@6.4.1(patch_hash=a8ca79e6f8a960e23b51f993feb29fb4dbb2d5135c90aca36b1002c46f8f4cbf):
     dependencies:
       '@vercel/nft': 0.29.4
       acorn: 8.15.0

@@ -1,4 +1,8 @@
 packages:
   - napi/*
+
 ignoredOptionalDependencies:
   - '@tuan/core-graph*'
+
+patchedDependencies:
+  ava: patches/ava.patch
