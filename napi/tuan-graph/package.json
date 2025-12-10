@@ -59,8 +59,7 @@
     "prepublishOnly": "napi prepublish -t npm",
     "test": "ava",
     "preversion": "napi build --platform && git add .",
-    "version": "napi version",
-    "prepare": "cd ../../ && husky"
+    "version": "napi version"
   },
   "devDependencies": {
     "@emnapi/core": "^1.5.0",
@@ -72,7 +71,6 @@
     "@types/node": "^24.10.1",
     "ava": "^6.4.1",
     "chalk": "^5.6.2",
-    "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
     "npm-run-all2": "^8.0.4",
     "oxlint": "^1.14.0",
