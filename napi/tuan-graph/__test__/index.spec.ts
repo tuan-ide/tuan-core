@@ -9,11 +9,11 @@ const test = anyTest as TestFn<{ projectDir: string }>;
 
 test.before((t) => {
   const repoUrl = 'https://github.com/arthur-fontaine/agrume.git';
-  const cloneDir = path.join(tmpdir(), `agrume-${Date.now()}`);
+  const cloneDir = path.join(tmpdir(), `agrume-${Date.now()}-${Math.random().toString(16).slice(2)}`);
 
   execSync(`git clone ${repoUrl} ${cloneDir}`, { stdio: 'inherit' });
-  execSync(`cd ${cloneDir} && pnpm install`, { stdio: 'inherit' });
-  execSync(`cd ${cloneDir} && pnpm build`, { stdio: 'inherit' });
+  execSync(`pnpm install`, { stdio: 'inherit', cwd: cloneDir });
+  execSync(`pnpm build`, { stdio: 'inherit', cwd: cloneDir });
 
   t.context.projectDir = cloneDir;
 });

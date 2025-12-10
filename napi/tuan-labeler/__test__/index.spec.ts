@@ -9,7 +9,7 @@ const test = anyTest as TestFn<{ projectDir: string }>;
 
 test.before((t) => {
   const repoUrl = 'https://github.com/arthur-fontaine/agrume.git';
-  const cloneDir = path.join(tmpdir(), `agrume-${Date.now()}`);
+  const cloneDir = path.join(tmpdir(), `agrume-${Date.now()}-${Math.random().toString(16).slice(2)}`);
 
   execSync(`git clone ${repoUrl} ${cloneDir}`, { stdio: 'inherit' });
 
