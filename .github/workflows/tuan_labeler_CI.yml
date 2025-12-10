@@ -394,7 +394,7 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v6
         with:
-          path: artifacts
+          path: napi/tuan-labeler/artifacts
       - name: create npm dirs
         run: pnpm napi create-npm-dirs
       - name: Move artifacts
