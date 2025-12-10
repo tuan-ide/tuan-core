@@ -12,6 +12,10 @@ test.before((t) => {
   const cloneDir = path.join(tmpdir(), `agrume-${Date.now()}-${Math.random().toString(16).slice(2)}`);
 
   execSync(`git clone ${repoUrl} ${cloneDir}`, { stdio: 'inherit' });
+  if (process.platform === 'win32') {
+    execSync(`pnpm config set virtual-store-dir "C:\pnpm-vs"`, { stdio: 'inherit', cwd: cloneDir });
+    execSync(`pnpm config set virtual-store-dir-max-length 80`, { stdio: 'inherit', cwd: cloneDir });
+  }
   execSync(`pnpm install`, { stdio: 'inherit', cwd: cloneDir });
   execSync(`pnpm build`, { stdio: 'inherit', cwd: cloneDir });
 
