@@ -27,12 +27,11 @@ impl Typescript {
     fn create_graph(project_path: PathBuf) -> Graph {
         let mut graph = Graph::new();
 
-        let project_path = project_path.canonicalize().unwrap();
-        let root = &project_path;
-        let extractor = extractor::Extractor::new(project_path.clone());
+        let project_path = project_path;
+        let extractor = extractor::Extractor::new(&project_path);
         let ts_files = {
             measure_time::info_time!("Finding TypeScript files");
-            extractor.find_typescript_files(root)
+            extractor.find_typescript_files(&project_path)
         };
 
         let results: Vec<(Node, Vec<Edge>)> = {
@@ -45,7 +44,7 @@ impl Typescript {
                         Ok(imports) => {
                             for imported_file in imports {
                                 // TODO: support imports with ? (like import x from 'y?type=script')
-                                if let Some(import_node) = ts_files.get(&imported_file.file_path) {
+                                if let Some(import_node) = ts_files.get(&imported_file.key) {
                                     edges.push(Edge::new(file.id.clone(), import_node.id.clone()));
                                 }
                             }

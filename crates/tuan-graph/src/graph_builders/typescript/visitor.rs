@@ -26,14 +26,16 @@ impl<'a> Visitor<'a> {
 
     fn add_import<I>(&mut self, specifier: &str, identifiers: Option<I>)
     where
-        I: IntoIterator<Item = &'a str>,
+        I: IntoIterator<Item = &'a str> + std::fmt::Debug,
     {
         let context = self.current_file_dir.clone();
 
         if let Ok(resolution) = self.resolver.resolve(context, specifier) {
             let path = resolution.full_path().to_path_buf();
 
-            self.imports.push(Node::from_path(path.clone()));
+            if let Some(node) = Node::from_path(path.clone()) {
+                self.imports.push(node);
+            }
 
             if let Some(identifiers) = identifiers
                 && !(specifier.starts_with(".") || specifier.starts_with("/"))
@@ -79,7 +81,9 @@ impl<'a> Visitor<'a> {
                                     .unwrap_or(import_path.clone())
                             };
 
-                            self.imports.push(Node::from_path(absolute_import_path));
+                            if let Some(node) = Node::from_path(absolute_import_path) {
+                                self.imports.push(node);
+                            }
                         }
 
                         break;

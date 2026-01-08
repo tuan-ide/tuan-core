@@ -1,7 +1,7 @@
-use crate::{graph::Node, graph_builders::typescript::visitor::Visitor};
+use crate::{graph::{FileFingerprint, Node}, graph_builders::typescript::visitor::Visitor};
 use oxc_ast_visit::Visit;
 use oxc_parser::{Parser, ParserReturn};
-use oxc_resolver::{ResolveOptions, Resolver, TsconfigOptions, TsconfigReferences};
+use oxc_resolver::{ResolveOptions, Resolver};
 use oxc_span::SourceType;
 use std::{
     collections::HashMap,
@@ -14,7 +14,7 @@ pub(super) struct Extractor {
 }
 
 impl Extractor {
-    pub(super) fn new(project_path: PathBuf) -> Self {
+    pub(super) fn new(project_path: &PathBuf) -> Self {
         Self {
             resolver: Self::build_resolver(&project_path),
         }
@@ -50,7 +50,7 @@ impl Extractor {
         Resolver::new(options)
     }
 
-    pub(super) fn find_typescript_files(&self, root: &Path) -> HashMap<PathBuf, Node> {
+    pub(super) fn find_typescript_files(&self, root: &Path) -> HashMap<FileFingerprint, Node> {
         WalkDir::new(root)
             .into_iter()
             .filter_entry(|entry| {
@@ -71,8 +71,8 @@ impl Extractor {
                 if e.file_type().is_file() {
                     match e.path().extension().and_then(|s| s.to_str()) {
                         Some("ts" | "tsx" | "js" | "jsx" | "mjs" | "cjs") => {
-                            let node = Node::from_path(e.into_path());
-                            Some((node.file_path.clone(), node))
+                            let node = Node::from_path(e.into_path())?;
+                            Some((node.key.clone(), node))
                         }
                         _ => None,
                     }

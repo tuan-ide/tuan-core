@@ -1,10 +1,11 @@
 use ordered_float::OrderedFloat;
+use serde::Serialize;
+use std::fs::File;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::{
     collections::{HashMap, HashSet},
     path::PathBuf,
 };
-use serde::Serialize;
 
 #[repr(C)]
 #[derive(Debug, Clone, Serialize)]
@@ -80,30 +81,51 @@ impl Graph {
 
 pub type NodeId = usize;
 
+#[derive(Hash, Eq, PartialEq, Debug, Clone, Serialize)]
+pub struct FileFingerprint {
+    size: u64,
+    modified_ns: u128,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct Node {
     pub id: NodeId,
     pub label: String,
     pub file_path: PathBuf,
     pub position: (OrderedFloat<f64>, OrderedFloat<f64>),
+    pub key: FileFingerprint,
 }
 
 impl Node {
-    pub fn from_path(file_path: PathBuf) -> Self {
+    pub fn from_path(file_path: PathBuf) -> Option<Self> {
         static NODE_ID_COUNTER: AtomicUsize = AtomicUsize::new(0);
         let id = NODE_ID_COUNTER.fetch_add(1, Ordering::Relaxed);
+
+        let file = File::open(&file_path).ok()?;
+        let md = file.metadata().ok()?;
+        let key = FileFingerprint {
+            size: md.len(),
+            modified_ns: md
+                .modified()
+                .ok()?
+                .duration_since(std::time::UNIX_EPOCH)
+                .ok()?
+                .as_nanos(),
+        };
+        drop(file);
 
         let label = file_path
             .file_name()
             .map(|s| s.to_string_lossy().to_string())
             .unwrap();
 
-        Self {
+        Some(Self {
             id,
             label,
             file_path,
             position: (OrderedFloat(0.0), OrderedFloat(0.0)),
-        }
+            key,
+        })
     }
 }
 
